@@ -72,8 +72,9 @@ def set_routes(app):
 async def main(loop):
     """Main."""
     # instantiate REDIS:
+    redis_info = auxil.get_redis_info()  # get info about redis as a list
     global redis
-    redis = RedisAIO()
+    redis = RedisAIO(*redis_info)
     await redis.connect()
 
 
