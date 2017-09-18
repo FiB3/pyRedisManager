@@ -1,9 +1,14 @@
 """Server for accessing REDIS."""
 import asyncio
 from aiohttp import web
+import aiohttp_jinja2
+import jinja2
+import logging
+# my modules:
 from src.redis import RedisAIO
 import src.auxil as auxil
-import logging
+
+OS_PATH_TO_TEMPLATES = "./templates/"
 
 PATH_LOGIN_UI = "/login"
 """Path for obtaining web interface in REDIS."""
@@ -42,10 +47,26 @@ async def commands_handler(request):
     return web.Response(text=res)
 
 
+async def login_ui_handler(request):
+    """Handler for user login - gets a JWT token."""
+    pass
+
+
+@aiohttp_jinja2.template("interface.html")
+async def commands_ui_handler(request):
+    """Handler, which runs a single command in REDIS."""
+
+    return {}
+
+
 def set_routes(app):
     """Set all routes of pyRedisManager."""
+    # prep API routes:
     app.router.add_post(PATH_LOGIN, login_handler)
     app.router.add_post(PATH_CMD, commands_handler)
+    # prep web pages routes
+    app.router.add_get(PATH_LOGIN_UI, login_ui_handler)
+    app.router.add_get(PATH_CMD_UI, commands_ui_handler)
 
 
 async def main(loop):
@@ -72,8 +93,11 @@ if __name__ == '__main__':
     loop.run_until_complete(main(loop))
     # instantiate web.Application:
     app = web.Application(middlewares=[login_middleware])
+    # add jinja2 into the server:
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(OS_PATH_TO_TEMPLATES))
     # setup other stuff on web server:
     set_routes(app)
     app.on_shutdown.append(on_shutdown)
     # run the app:
-    web.run_app(app, host="localhost", port=5000)
+    server_info = auxil.get_server_info_on_local()
+    web.run_app(app, host=server_info["host"], port=server_info["port"])
