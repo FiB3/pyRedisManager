@@ -59,7 +59,13 @@ class RedisAIO(object):
             await self.connect()
             res = await self.redis.execute(*cmd)  # lets not go into recursion...
         # return decoded answer:
-        if type(res) == bytes:
+        if type(res) == list:
+            # in case of list response, stringify:
+            res = ["{}) {}".format(res.index(el) + 1, el.decode(ENCODING_UTF)) for el in res]
+            # that was not very pythonic, I know ;)
+            res = "\n".join(res)
+        elif type(res) == bytes:
+            # decode bytes to string:
             return res.decode(ENCODING_UTF)
         else:
             return res
