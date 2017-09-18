@@ -61,14 +61,14 @@ class RedisAIO(object):
         # return decoded answer:
         if type(res) == list:
             # in case of list response, stringify:
-            res = ["{}) {}".format(res.index(el) + 1, el.decode(ENCODING_UTF)) for el in res]
+            res = ['{}) "{}"'.format(res.index(el) + 1, el.decode(ENCODING_UTF)) for el in res]
             # that was not very pythonic, I know ;)
             res = "\n".join(res)
         elif type(res) == bytes:
             # decode bytes to string:
-            return res.decode(ENCODING_UTF)
-        else:
-            return res
+            res = res.decode(ENCODING_UTF)
+
+        return res
 
 
 ################################################################################
