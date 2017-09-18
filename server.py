@@ -67,6 +67,9 @@ def set_routes(app):
     # prep web pages routes
     app.router.add_get(PATH_LOGIN_UI, login_ui_handler)
     app.router.add_get(PATH_CMD_UI, commands_ui_handler)
+    # add static folders:
+    # TODO: this should be used for dev only - replace later:
+    app.router.add_static('/templates/css', './templates/css/')
 
 
 async def main(loop):
