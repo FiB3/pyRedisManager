@@ -70,6 +70,7 @@ def set_routes(app):
     # add static folders:
     # TODO: this should be used for dev only - replace later:
     app.router.add_static('/templates/css', './templates/css/')
+    app.router.add_static('/templates/js', './templates/js/')
 
 
 async def main(loop):
