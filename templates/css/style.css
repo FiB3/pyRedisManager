@@ -1,6 +1,7 @@
 /*
 * RESET:
 */
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p,
 blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img,
 ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center,
@@ -11,11 +12,11 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+	font-size: 110%;
+	font-family: Georgia, serif;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -47,7 +48,73 @@ table {
     color: white;
 }
 
+#top_panel h1 {
+    color: white;
+	font-style: italic;
+	font-weight: 400;
+	font-size: 135%;
+	padding-left: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+#top_panel .server_info {
+    color: white;
+	float: right;
+	font-size: 100%;
+	margin-left: 10px;
+	position: relative;
+	top: -30px;
+	padding-right: 15px;
+	border-right: 2px solid white;
+}
+
+#top_panel #user_info p {
+	float: right;
+	font-size: 100%;
+	margin-left: 10px;
+	margin-right: 10px;
+	position: relative;
+	top: -30px;
+}
+
+
 #terminal {
     background-color: black;
     color: white;
+	height: calc(100vh - 50px);
+	position: relative;
+	padding: 10px;
+}
+
+#terminal .cmd {
+	position: fixed;
+	bottom:10px;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color: black;
+}
+
+#terminal .cmd p {
+	float: left;
+	margin: 5px 2% 0 0;
+}
+
+#terminal input {
+	background-color: black;
+	color: white;
+	font-size: 110%;
+}
+
+#terminal input[name="command_text"] {
+	float: left;
+	border: none;
+	border-bottom: 1px solid white;
+	width: 90%
+}
+
+#terminal #submit_button {
+	float: right;
+	width: 5%;
 }
