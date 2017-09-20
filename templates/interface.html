@@ -3,23 +3,33 @@
 <head>
     <title>pyWebRedis</title>
 
-    <link rel="stylesheet" type="text/css" href="templates/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/templates/css/style.css">
+
+    <script type="text/javascript" src="/templates/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="/templates/js/worker.js"></script>
 </head>
 
 <body>
     <div id="top_panel">
         <h1>pyWebRedis</h1>
-        <p class="server_info">DUMMY-server</p>
+
         <div id="user_info">
             <p>JOHN DOE</p>
         </div>
+
+        <p class="server_info">DUMMY-server</p>
     </div>
 
     <div id="terminal">
-        This will contain the terminal.
+        <div class="past">
+            <p>></p>
+        </div>
         <br>
-        There will be the input for entering the command, and the button for sending the command.
-        The signal for that will be also possible to trigger via an Enter key.
+        <div class="cmd">
+            <p>></p>
+            <input type="text" name="command_text">
+            <input type="submit" value="Enter" id="submit_button">
+        </div>
     </div>
 </body>
 </html>
