@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    // TODO: https://plugins.jquery.com/storageapi/
     var send_button = $( "#submit_button");
     var cmd_input = $("input[name='command_text']");
     var output_texts_id = "#outputs";
