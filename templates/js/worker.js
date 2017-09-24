@@ -20,6 +20,16 @@ $(document).ready(function(){
         return false;
     }
 
+    // set input to:
+    function set_input_text(new_text) {
+        cmd_input.val(new_text);
+    }
+
+    // clear input:
+    function clear_input() {
+        set_input_text("");
+    }
+
     // If the send button is pressed:
     send_button.click(function(){
         request();
@@ -85,6 +95,7 @@ $(document).ready(function(){
         var new_text = "<p>" + text2add + "</p>"
         $( new_text ).appendTo(output_texts_id);
 
+        clear_input();
         scroll_terminal();
     };
 });
