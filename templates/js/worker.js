@@ -3,8 +3,22 @@ $(document).ready(function(){
     var cmd_input = $("input[name='command_text']");
     var output_texts_id = "#outputs";
     var output_texts = $(output_texts_id);
+    var terminal_view = $( "#terminal");
 
     var key_codes=new Array(33,34,35,36,37,38,39,40);
+
+    // set focus to input:
+    cmd_input.focus();
+
+    // keep scrolled at the bottom:
+    function scroll_terminal(){
+        console.log("Scrolling");
+        terminal_view.scrollTop = terminal_view.scrollHeight;
+        terminal_view.animate({
+            scrollTop: output_texts.height()
+        }, "fast");
+        return false;
+    }
 
     // If the send button is pressed:
     send_button.click(function(){
@@ -34,7 +48,6 @@ $(document).ready(function(){
         } else if (key.which == 38) {
             // get previous command (s)
             console.log("Up key pressed.");
-            e.preventDefault();
         } else if (key.which == 40) {
             // get next command
             console.log("Down key pressed.");
@@ -46,7 +59,11 @@ $(document).ready(function(){
     });
 
     function request(){
-        cmd = cmd_input.val();
+        cmd = cmd_input.val().trim();
+
+        if (cmd == "") {
+            return;
+        }
 
         $.ajax({
             url: "/api/commands",
@@ -59,57 +76,15 @@ $(document).ready(function(){
     };
 
     function update_outputs(command, text2add){
-        $("#outputs p:last-child").text("> " + command);
+        $( "<p>> "  + command + "</p>" ).appendTo(output_texts_id);
         $( new_text ).appendTo(output_texts_id);
+
+        console.log(text2add)
+        text2add = text2add.replace(/\\n/g, '<br>');
+
         var new_text = "<p>" + text2add + "</p>"
         $( new_text ).appendTo(output_texts_id);
-        $( "<p>></p>" ).appendTo(output_texts_id);
-        // text = old + " " + command;
-        // text += "\n" + text2add;
-        // text += "\n>";
-        // text = text.replace("\n", "<br>")
-        // outputs_text.text(text);
+
+        scroll_terminal();
     };
 });
-
-// var sendButton = ;
-
-// sendButton.on( "click", function( event ) {
-//   request();
-// });
-// $( "#submit_button").submit(function( event ) {
-//     alert("You've clicked me!");
-// });
-// sendButton.submit(function( event ) {
-//
-//   // Stop form from submitting normally
-//   event.preventDefault();
-//
-//   // Get some values from elements on the page:
-//   var $form = $( this ),
-//     term = $form.find( "input[name='command_text']" ).val(),
-//     url = "/api/commands";
-//
-//   // Send the data using post
-//   var posting = $.post( url, term );
-//
-//   // Put the results in a div
-//   posting.done(function( data ) {
-//       alert(data)
-//     // var content = $( data ).find( "#content" );
-//     // $( "#result" ).empty().append( content );
-//   });
-// }
-
-// function request() {
-//     $.post( "/api/commands", "KEYS *" );
-// }
-
-// sendButton.ajax({
-//   url: "/api/commands",
-//   method: 'POST',
-//   data: "KEYS *",
-//   success: function( result ) {
-//     alert(result);
-//   }
-// });
